@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.main.fragments.AddExpenseFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:paddingTop="16dp"
+        >
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/expense_name_input"
+            style="@style/Widget.ExpenseManager.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/expense_name_input_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/expense_name_hint"
+                android:autofillHints="expenseName"
+                android:inputType="textNoSuggestions"
+                android:singleLine="true"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/expense_value_input"
+            style="@style/Widget.ExpenseManager.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/expense_name_input" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/expense_value_input_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="value"
+                android:hint="@string/expense_value_input_hint"
+                android:inputType="numberSigned|numberDecimal"
+                android:singleLine="true"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/expense_date_input"
+            style="@style/Widget.ExpenseManager.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/expense_value_input" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/expense_date_input_edit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:autofillHints="date"
+                android:hint="@string/expense_date_input_hint"
+                android:inputType="date|textAutoComplete"
+                android:clickable="true"
+                android:focusable="false"
+                android:singleLine="true"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="@color/black"
+            app:cardCornerRadius="4dp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/expense_date_input">
+            <Spinner
+                android:id="@+id/expense_category_input"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:autofillHints="category"
+                android:hint="@string/expense_category_input_hint"
+                 />
+        </com.google.android.material.card.MaterialCardView>
+
+        <Button
+            android:id="@+id/add_expense_button"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="@string/add_expense_button_label"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

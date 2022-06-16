@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:navigationIcon="@drawable/ic_back_arrow_icon"
+        app:navigationIconTint="@color/secondary_text"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4">
+
+        <TextView
+            android:id="@+id/register_title"
+            style="@style/TextAppearance.MaterialComponents.Headline4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:text="Register"
+            android:textColor="@color/colorPrimary"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/subtitle"
+            style="@style/TextAppearance.MaterialComponents.Headline6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:text="Fill this quick form to gain access to the functionalities of the app"
+            android:textColor="@color/secondary_text"
+            android:textSize="15dp"
+            app:layout_constraintEnd_toEndOf="@+id/register_title"
+            app:layout_constraintStart_toStartOf="@+id/register_title"
+            app:layout_constraintTop_toBottomOf="@+id/register_title" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_input_layout"
+            style="@style/Widget.ExpenseManager.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="8dp"
+            android:autofillHints="emailAddress"
+            android:hint="E-mail"
+            app:layout_constraintTop_toBottomOf="@+id/subtitle"
+            app:startIconDrawable="@android:drawable/sym_action_email">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_input_layout"
+            style="@style/Widget.ExpenseManager.TextInputLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="8dp"
+            android:autofillHints="emailAddress"
+            android:hint="Password"
+            app:layout_constraintTop_toBottomOf="@+id/email_input_layout"
+            app:startIconDrawable="@android:drawable/ic_lock_lock">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password_edit_text"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <CheckBox
+            android:id="@+id/check_terms"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:buttonTint="@color/primary"
+            android:text="I have read and agreed to the terms of condition"
+            app:layout_constraintEnd_toEndOf="@+id/password_input_layout"
+            app:layout_constraintStart_toStartOf="@+id/password_input_layout"
+            app:layout_constraintTop_toBottomOf="@+id/password_input_layout" />
+
+        <Button
+            android:id="@+id/send_button"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:text="Register"
+            app:layout_constraintEnd_toEndOf="@+id/password_input_layout"
+            app:layout_constraintStart_toStartOf="@+id/password_input_layout"
+            app:layout_constraintTop_toBottomOf="@+id/check_terms" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

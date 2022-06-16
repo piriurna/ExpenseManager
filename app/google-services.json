@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "684979426306",
+    "project_id": "expensemanager-4a909",
+    "storage_bucket": "expensemanager-4a909.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:684979426306:android:6d7049f74a68031734431b",
+        "android_client_info": {
+          "package_name": "com.blankwhite.expensemanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "684979426306-enpcl1t1iv1plgfp5tp1kmo5fg0ojn6s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.blankwhite.expensemanager",
+            "certificate_hash": "5b1b5bf1daf0b3f127b28d747523fa1d3365b50a"
+          }
+        },
+        {
+          "client_id": "684979426306-35orjjrmcnrg44ker06jpjlim4nn55tr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA4Lz-HOh3gyCxsOTuDz3L2PHN95yszxrE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "684979426306-35orjjrmcnrg44ker06jpjlim4nn55tr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

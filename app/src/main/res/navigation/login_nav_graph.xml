@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/login_nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.blankwhite.expensemanager.ui.login.fragments.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_resetPasswordScreen"
+            app:destination="@id/resetPasswordScreen"
+            app:enterAnim="@anim/fui_slide_in_right"
+            app:exitAnim="@anim/fui_slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_top"
+            app:popExitAnim="@anim/slide_out_down"
+            app:popEnterAnim="@anim/slide_in_top" />
+    </fragment>
+    <fragment
+        android:id="@+id/resetPasswordScreen"
+        android:name="com.blankwhite.expensemanager.ui.login.fragments.ForgotPasswordFragment"
+        android:label="Reset Password" >
+        <action
+            android:id="@+id/go_to_check_code"
+            app:destination="@id/forgotPasswordVerificationCodeFragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_down" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordVerificationCodeFragment"
+        android:name="com.blankwhite.expensemanager.ui.login.fragments.ForgotPasswordVerificationCodeFragment"
+        android:label="forgor_password_verification_code"
+        tools:layout="@layout/forgot_password_verification_code" />
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.blankwhite.expensemanager.ui.login.fragments.RegisterFragment"
+        android:label="RegisterFragment" />
+
+</navigation>
