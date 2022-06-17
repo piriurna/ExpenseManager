@@ -1,17 +1,19 @@
 package com.blankwhite.expensemanager.ui.main.fragments
 
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.viewbinding.ViewBinding
 import com.blankwhite.expensemanager.BaseActivity
 import com.blankwhite.expensemanager.R
+import com.blankwhite.expensemanager.ui.common.AppStatusBar
+import com.blankwhite.expensemanager.ui.common.StatusBarColor
 import com.blankwhite.expensemanager.utils.BackButtonHandlerInterface
 import com.blankwhite.expensemanager.utils.OnBackClickListener
 
@@ -23,6 +25,10 @@ abstract class BaseFragment : Fragment(), OnBackClickListener {
 
     open fun useDefaultToolbar() : Boolean {
       return true
+    }
+
+    open fun getStatusBarColor() : StatusBarColor {
+        return AppStatusBar(requireContext())
     }
 
     fun getMainActivity() : BaseActivity {
@@ -56,7 +62,7 @@ abstract class BaseFragment : Fragment(), OnBackClickListener {
         savedInstanceState: Bundle?
     ): View? {
         if(!useDefaultToolbar()) getMainActivity().hideToolbar() else getMainActivity().showToolbar()
-
+        getMainActivity().changeStatusBarColor(getStatusBarColor())
         return getBinding(inflater, container).root
     }
 

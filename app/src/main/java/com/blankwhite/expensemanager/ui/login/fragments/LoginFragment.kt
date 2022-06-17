@@ -12,6 +12,8 @@ import androidx.viewbinding.ViewBinding
 import com.blankwhite.expensemanager.MainActivity
 import com.blankwhite.expensemanager.R
 import com.blankwhite.expensemanager.databinding.FragmentLoginBinding
+import com.blankwhite.expensemanager.ui.common.LightStatusBar
+import com.blankwhite.expensemanager.ui.common.StatusBarColor
 import com.blankwhite.expensemanager.ui.login.viewmodels.LoginViewModel
 import com.blankwhite.expensemanager.ui.main.fragments.BaseFragment
 import com.blankwhite.expensemanager.utils.hideKeyboard
@@ -22,6 +24,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class LoginFragment : BaseFragment() {
+
+    override fun getStatusBarColor(): StatusBarColor = LightStatusBar(requireContext())
+
     private lateinit var auth: FirebaseAuth
 
     private lateinit var _binding : FragmentLoginBinding

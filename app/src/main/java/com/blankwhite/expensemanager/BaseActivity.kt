@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowInsetsControllerCompat
+import com.blankwhite.expensemanager.ui.common.StatusBarColor
 import com.blankwhite.expensemanager.ui.login.LoginRegisterActivity
 import com.blankwhite.expensemanager.utils.BackButtonHandlerInterface
 import com.blankwhite.expensemanager.utils.OnBackClickListener
@@ -69,6 +70,13 @@ abstract class BaseActivity : AppCompatActivity(), BackButtonHandlerInterface {
         window.statusBarColor = color
 
         WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = isLight
+    }
+
+    fun changeStatusBarColor(statusBarColor: StatusBarColor) {
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        window.statusBarColor = statusBarColor.color
+
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = statusBarColor.isLight
     }
 
     override fun onBackPressed() {

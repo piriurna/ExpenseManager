@@ -11,12 +11,12 @@
         <item name="colorSecondaryVariant">@color/accent</item>
         <item name="colorOnSecondary">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/primary</item>
         <!-- Customize your theme here. -->
 <!--        <item name="textInputStyle">@style/Widget.ExpenseManager.TextInputLayout</item>-->
 
         <item name="colorControlNormal">@android:color/white</item>
 
-        <item name="iconTint">@color/black</item>
+        <item name="iconTint">@color/white</item>
     </style>
 </resources>
