@@ -47,10 +47,19 @@
         android:label="HomeFragment" >
         <action
             android:id="@+id/action_homeFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_in_top"
+            app:exitAnim="@anim/slide_out_down"
+            app:popUpTo="@id/homeFragment"
+            app:popEnterAnim="@anim/slide_in_down"
+            app:popExitAnim="@anim/slide_out_top" />
         <action
             android:id="@+id/action_homeFragment_to_incomeInformationFragment"
-            app:destination="@id/incomeInformationFragment" />
+            app:destination="@id/incomeInformationFragment"
+            app:enterAnim="@anim/slide_in_down"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_down" />
     </fragment>
     <fragment
         android:id="@+id/incomeInformationFragment"

@@ -2,17 +2,16 @@ package com.blankwhite.expensemanager.services
 
 import com.google.gson.annotations.SerializedName
 import io.reactivex.rxjava3.core.Single
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 import java.sql.Date
 import java.sql.Timestamp
 
 interface ExpensesBaseService {
 
     @GET("expenses/listAll")
-    fun getAllExpenses(): Single<ExpensesResponse>
+    fun getAllExpenses(
+        @Header("uid") uid: String
+    ): Single<ExpensesResponse>
 
 
     @GET("expenses/listAll/{year}/{month}")

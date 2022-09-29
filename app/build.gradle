@@ -25,7 +25,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "BASE_API_URL", "https://expense-manager---2.herokuapp.com/"
+            buildConfigField "String", "BASE_API_URL", "\"https://expense-manager---2.herokuapp.com/\""
         }
     }
     compileOptions {
@@ -86,6 +86,9 @@ dependencies {
     //Login
     implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
     implementation 'com.google.firebase:firebase-auth-ktx'
+
+    //Refresh Recycler View
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
 }
 
 kapt {

@@ -13,6 +13,7 @@ import com.blankwhite.expensemanager.ui.common.LightStatusBar
 import com.blankwhite.expensemanager.ui.common.StatusBarColor
 import com.blankwhite.expensemanager.ui.login.LoginRegisterActivity
 import com.blankwhite.expensemanager.ui.main.fragments.BaseFragment
+import com.blankwhite.expensemanager.utils.isEmail
 
 class ForgotPasswordFragment : BaseFragment() {
 
@@ -39,8 +40,8 @@ class ForgotPasswordFragment : BaseFragment() {
     private fun setupButton() {
         binding.sendButton.setOnClickListener {
             it.isEnabled = false
-            val email = binding.emailEditText.text
-            email?.toString()?.let { emailString ->
+            val email = binding.emailEditText.text?.toString()
+            email?.let { emailString ->
                 sendCodeToEmail(emailString)
             }
         }
@@ -53,21 +54,30 @@ class ForgotPasswordFragment : BaseFragment() {
     }
 
     private fun sendCodeToEmail(email : String) {
-        val activity = requireActivity() as LoginRegisterActivity
+        if(!email.isEmail()){
+            binding.sendButton.isEnabled = true
+            binding.emailInputLayout.error = "Invalid Email"
+            return
+        }
 
-        activity
-            .auth
+        auth
             .sendPasswordResetEmail(email)
             .addOnCompleteListener { task ->
                 if(task.isSuccessful) {
+                    clearErrors()
                     val bundle = Bundle()
                     bundle.putString(EMAIL_KEY, email)
                     navigateTo(R.id.go_to_check_code, bundle)
                 } else {
-                    binding.emailInputLayout.error = "Incorrect Email"
+                    binding.sendButton.isEnabled = true
+                    binding.emailInputLayout.error = task.exception?.message
                     binding.sendButton.isEnabled = true
                 }
             }
+    }
+
+    private fun clearErrors() {
+        binding.emailInputLayout.error = ""
     }
 
     companion object {

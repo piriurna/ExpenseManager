@@ -16,12 +16,16 @@ import com.blankwhite.expensemanager.ui.common.AppStatusBar
 import com.blankwhite.expensemanager.ui.common.StatusBarColor
 import com.blankwhite.expensemanager.utils.BackButtonHandlerInterface
 import com.blankwhite.expensemanager.utils.OnBackClickListener
+import com.google.firebase.auth.FirebaseAuth
 
 
 /**
  * @param T the binding associated with the fragment
  */
 abstract class BaseFragment : Fragment(), OnBackClickListener {
+
+    protected val auth : FirebaseAuth
+    get() = getMainActivity().auth
 
     open fun useDefaultToolbar() : Boolean {
       return true

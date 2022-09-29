@@ -4,6 +4,9 @@ import com.blankwhite.expensemanager.BuildConfig
 import com.blankwhite.expensemanager.services.ExpensesBaseService
 import com.blankwhite.expensemanager.services.ExpensesService
 import com.blankwhite.expensemanager.services.ExpensesServiceImpl
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +20,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class ApplicationModule {
+
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth() : FirebaseAuth {
+        return Firebase.auth
+    }
 
     @Provides
     fun provideBaseUrl() = "https://expense-manager---2.herokuapp.com/"

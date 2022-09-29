@@ -4,7 +4,7 @@ import java.math.BigDecimal
 import java.text.NumberFormat
 import java.util.*
 
-fun Double.formatEuros(locale: Locale = Locale.getDefault()) : String =
+fun Double.formatEuros(locale: Locale = Locale.GERMANY) : String =
     String.format("%.2f", this).formatEuros(locale)
 
 fun String.formatEuros(locale: Locale = Locale.getDefault()) : String {

@@ -1,7 +1,5 @@
 package com.blankwhite.expensemanager.ui.main.viewModels
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,11 +11,10 @@ import com.blankwhite.expensemanager.services.ExpensesResponse
 import com.blankwhite.expensemanager.services.NetworkHelper
 import com.blankwhite.expensemanager.services.handlers.ResultHandler
 import com.blankwhite.expensemanager.services.repositories.ExpensesRepository
-import com.blankwhite.expensemanager.utils.Status
+import com.blankwhite.expensemanager.ui.common.Status
 import com.blankwhite.expensemanager.utils.convert
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import java.time.LocalDate
 import java.util.*
 import javax.inject.Inject
 
