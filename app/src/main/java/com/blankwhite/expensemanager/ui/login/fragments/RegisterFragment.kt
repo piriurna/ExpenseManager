@@ -11,14 +11,18 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.viewbinding.ViewBinding
 import com.blankwhite.expensemanager.R
 import com.blankwhite.expensemanager.databinding.RegisterFragmentBinding
+import com.blankwhite.expensemanager.ui.common.LightStatusBar
+import com.blankwhite.expensemanager.ui.common.StatusBarColor
 import com.blankwhite.expensemanager.ui.main.fragments.BaseFragment
-import com.blankwhite.expensemanager.utils.colorText
-import com.blankwhite.expensemanager.utils.hideKeyboard
-import com.blankwhite.expensemanager.utils.onEditorEnterAction
-import com.blankwhite.expensemanager.utils.setSpans
+import com.blankwhite.expensemanager.utils.*
+import com.google.android.gms.tasks.Task
+import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 
 class RegisterFragment : BaseFragment(){
 
+    override fun getStatusBarColor(): StatusBarColor = LightStatusBar(requireContext())
 
     private lateinit var _binding : RegisterFragmentBinding
     private val binding
@@ -41,21 +45,55 @@ class RegisterFragment : BaseFragment(){
 
     private fun setupButtons() {
         binding.sendButton.setOnClickListener {
+            binding.sendButton.isEnabled = false
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
-            getMainActivity()
-                .auth
-                .createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener { task ->
-                    if(task.isSuccessful) {
-                        getMainActivity().refreshUser()
-                    }
-                }
+            registerWithEmail(email, password)
         }
 
         binding.passwordEditText.onEditorEnterAction {
             hideKeyboard()
         }
+    }
+
+    private fun registerWithEmail(email: String, password: String) {
+        if(!email.isEmail()) {
+            displayError(binding.emailInputLayout, "Invalid Email")
+            return
+        }
+
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                updateUI(task)
+                if(task.isSuccessful) {
+                    getMainActivity().refreshUser()
+                }
+            }
+    }
+
+    private fun updateUI(task: Task<AuthResult>) {
+        if(task.isSuccessful) {
+            clearErrors()
+        } else {
+            binding.sendButton.isEnabled = true
+            when {
+                task.isCanceled -> {
+                    displayError("Login Canceled")
+                }
+
+                task.exception is FirebaseAuthInvalidCredentialsException -> {
+                    displayError(task.exception?.message)
+                }
+            }
+        }
+    }
+
+    private fun displayError(error: String?) {
+        displayError(binding.passwordInputLayout, error)
+    }
+
+    private fun displayError(textField: TextInputLayout, error: String?) {
+        textField.error = error
     }
 
     private fun setTexts() {
@@ -69,6 +107,12 @@ class RegisterFragment : BaseFragment(){
         binding.toolbar.setNavigationOnClickListener {
             getNavController().popBackStack()
         }
+    }
+
+    private fun clearErrors() {
+        binding.emailInputLayout.isErrorEnabled = false
+        binding.emailInputLayout.error = ""
+        binding.passwordInputLayout.error = ""
     }
 
 }

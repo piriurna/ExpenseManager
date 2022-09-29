@@ -47,3 +47,8 @@ fun CharSequence.setSpans(spans: List<Any>, stringToColor: String, flags : Int =
     }
     return spannableText
 }
+
+
+fun CharSequence.isEmail() : Boolean{
+    return this.contains("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}\$".toRegex())
+}

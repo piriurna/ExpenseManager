@@ -1,21 +1,16 @@
 package com.blankwhite.expensemanager.ui.main.expenses.list
 
 import android.view.View
-import android.widget.TextView
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.blankwhite.expensemanager.R
 import com.blankwhite.expensemanager.models.Expense
-import com.blankwhite.expensemanager.ui.main.expenses.IconView
-import com.blankwhite.expensemanager.ui.main.expenses.CategoryAttrs
+import com.blankwhite.expensemanager.ui.main.expenses.list.adapter.ListItem
 import com.blankwhite.expensemanager.ui.main.expenses.list.adapter.OnExpenseClickListener
-import com.blankwhite.expensemanager.utils.formatEuros
 
 
 data class ExpenseItemViewHolder(
-    val itemView: View,
+    override val itemView: View,
     val listener: OnExpenseClickListener
-) : RecyclerView.ViewHolder(itemView) {
+) : ExpenseListBaseViewHolder(itemView) {
 
 //    private val expenseListItemView : ExpenseListItem = itemView as ExpenseListItem
 
@@ -36,6 +31,11 @@ data class ExpenseItemViewHolder(
                 listener.onExpenseClicked(expense)
             }
         }
+    }
+
+    fun updateValues(listItem: ListItem) {
+        expense = listItem.expense
+        expenseListItemView.showDivider(listItem.isAlone)
     }
 
     fun getCustomView() : ExpenseListItem {

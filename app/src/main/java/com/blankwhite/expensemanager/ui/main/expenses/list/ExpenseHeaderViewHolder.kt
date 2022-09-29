@@ -5,39 +5,25 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.blankwhite.expensemanager.R
 import com.blankwhite.expensemanager.models.Expense
+import com.blankwhite.expensemanager.ui.main.expenses.list.adapter.Header
 import com.blankwhite.expensemanager.utils.formatEuros
 import java.util.*
 
 
 data class ExpenseHeaderViewHolder(
-    val itemView: View,
-    val onClickListener: View.OnClickListener
-) : RecyclerView.ViewHolder(itemView) {
+    override val itemView: View
+) : ExpenseListBaseViewHolder(itemView) {
 
-//    private val expenseListItemView : ExpenseListItem = itemView as ExpenseListItem
+    private val expenseHeader : ExpenseHeader = itemView as ExpenseHeader
 
-    var amountTextView : TextView? = null
-    var labelTextView : TextView? = null
-
-    init {
-        itemView.setOnClickListener(onClickListener)
-
-        amountTextView = itemView.findViewById(R.id.amount)
-        labelTextView = itemView.findViewById(R.id.label)
+    var label : String = ""
+    set(value) {
+        expenseHeader.updateValues(value)
+        field = value
     }
 
-    fun updateValues(expenses : List<Expense>?) {
-        expenses?.let { list ->
-            val amountLists = list.map { it.value }
-            amountTextView?.let {
-                it.text = amountLists.sum().formatEuros()
-            }
-
-            labelTextView?.let {
-                it.text = list.first().category?.id?.capitalize(Locale.ROOT)
-            }
-
-        }
+    fun updateValues(header : Header) {
+        label = header.date!!
     }
 
 //    fun getCustomView() : ExpenseListItem {

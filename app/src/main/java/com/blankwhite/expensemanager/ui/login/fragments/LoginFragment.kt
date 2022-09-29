@@ -1,28 +1,31 @@
 package com.blankwhite.expensemanager.ui.login.fragments
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import androidx.viewbinding.ViewBinding
 import com.blankwhite.expensemanager.MainActivity
 import com.blankwhite.expensemanager.R
 import com.blankwhite.expensemanager.databinding.FragmentLoginBinding
-import com.blankwhite.expensemanager.ui.login.viewmodels.LoginViewModel
+import com.blankwhite.expensemanager.ui.common.LightStatusBar
+import com.blankwhite.expensemanager.ui.common.StatusBarColor
 import com.blankwhite.expensemanager.ui.main.fragments.BaseFragment
 import com.blankwhite.expensemanager.utils.hideKeyboard
+import com.blankwhite.expensemanager.utils.isEmail
 import com.blankwhite.expensemanager.utils.onEditorEnterAction
+import com.google.android.gms.tasks.Task
+import com.google.android.material.textfield.TextInputLayout
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 class LoginFragment : BaseFragment() {
-    private lateinit var auth: FirebaseAuth
+
+    override fun getStatusBarColor(): StatusBarColor = LightStatusBar(requireContext())
 
     private lateinit var _binding : FragmentLoginBinding
     private val binding
@@ -33,19 +36,6 @@ class LoginFragment : BaseFragment() {
         return _binding
     }
 
-    private lateinit var viewModel : LoginViewModel
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-        auth = Firebase.auth
-
-        return super.onCreateView(inflater, container, savedInstanceState)!!
-    }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,6 +43,7 @@ class LoginFragment : BaseFragment() {
         binding.loginButton.setOnClickListener {
             hideKeyboard()
             setButtonsEnabled(false)
+            clearErrors()
             val email = binding.emailEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
             loginWithEmail(email, password)
@@ -76,41 +67,49 @@ class LoginFragment : BaseFragment() {
 
 
     private fun loginWithEmail(email: String, password: String){
+        if(!email.isEmail()){
+            displayError(binding.emailLayout, "Invalid Email")
+            return
+        }
+
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
-            if (task.isSuccessful) {
-                // Sign in success, update UI with the signed-in user's information
-                val user = auth.currentUser
-                updateUI(user)
-            } else {
-                updateUI(null)
+                updateUI(task)
+                if (task.isSuccessful) {
+                    goToMainActivity()
+                }
             }
-
-        }
     }
 
-
-    private fun updateUI(user: FirebaseUser?) {
-        if(user == null) {
-            displayError()
-            setButtonsEnabled(true)
+    private fun updateUI(task: Task<AuthResult>) {
+        if(task.isSuccessful) {
+            clearErrors()
         } else {
-            displaySuccess()
-            goToMainActivity()
+            setButtonsEnabled(true)
+            when {
+                task.isCanceled -> {
+                    displayError("Login Canceled")
+                }
+
+                task.exception is FirebaseAuthInvalidCredentialsException -> {
+                    displayError(task.exception?.message)
+                }
+            }
         }
     }
 
-    private fun displayError(error: String? = null) {
-        // If sign in fails, display a message to the user.
-        Toast.makeText(requireContext(), "Authentication failed.",
-            Toast.LENGTH_SHORT).show()
-
-        binding.passwordInputLayout.error = "Wrong password or nonexistent user"
-
+    private fun displayError(error: String?) {
+        displayError(binding.passwordInputLayout, error)
     }
 
-    private fun displaySuccess() {
+    private fun displayError(textField: TextInputLayout, error: String?) {
+        textField.error = error
+    }
 
+    private fun clearErrors() {
+        binding.emailLayout.isErrorEnabled = false
+        binding.emailLayout.error = ""
+        binding.passwordInputLayout.error = ""
     }
 
     private fun goToMainActivity() {

@@ -16,7 +16,7 @@ import com.blankwhite.expensemanager.databinding.FragmentAddExpenseBinding
 import com.blankwhite.expensemanager.models.Category
 import com.blankwhite.expensemanager.ui.main.viewModels.AddExpenseViewModel
 import com.blankwhite.expensemanager.ui.main.expenses.list.adapter.SpinnerAdapter
-import com.blankwhite.expensemanager.utils.Status
+import com.blankwhite.expensemanager.ui.common.Status
 import com.blankwhite.expensemanager.utils.currency.CurrencyTextWatcher
 import com.blankwhite.expensemanager.utils.currency.OnCurrencyTextChangeListener
 import dagger.hilt.android.AndroidEntryPoint

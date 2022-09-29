@@ -6,13 +6,13 @@ import com.blankwhite.expensemanager.services.handlers.ResultHandler
 
 interface ExpensesService {
 
-    suspend fun getAllExpenses(handler: ResultHandler<ExpensesResponse>)
+    suspend fun getAllExpenses(headers: DefaultHeaders, handler: ResultHandler<ExpensesResponse>)
 
-    suspend fun getAllExpensesForPeriod(year: Int, month: Int, handler: ResultHandler<ExpensesResponse>)
+    suspend fun getAllExpensesForPeriod(headers: DefaultHeaders, year: Int, month: Int, handler: ResultHandler<ExpensesResponse>)
 
-    suspend fun getExpensesForCategory(category: Category, handler: ResultHandler<ExpensesResponse>)
+    suspend fun getExpensesForCategory(headers: DefaultHeaders,category: Category, handler: ResultHandler<ExpensesResponse>)
 
-    suspend fun addExpense(expense: Expense, handler: ResultHandler<ExpensesResponse>)
+    suspend fun addExpense(headers: DefaultHeaders, expense: Expense, handler: ResultHandler<ExpensesResponse>)
 
-    suspend fun fetchCategories(handler: ResultHandler<CategoriesResponse>)
+    suspend fun fetchCategories(headers: DefaultHeaders, handler: ResultHandler<CategoriesResponse>)
 }

@@ -13,29 +13,29 @@ import javax.inject.Inject
 
 class ExpensesServiceImpl @Inject constructor(private val expensesBaseService : ExpensesBaseService) : ExpensesService {
 
-    override suspend fun getAllExpenses(handler: ResultHandler<ExpensesResponse>) {
+    override suspend fun getAllExpenses(headers: DefaultHeaders, handler: ResultHandler<ExpensesResponse>) {
 
-        expensesBaseService.getAllExpenses()
+        expensesBaseService.getAllExpenses(headers.uid!!)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(handler::onSuccess, handler::onError)
     }
 
-    override suspend fun getAllExpensesForPeriod(year: Int, month: Int, handler: ResultHandler<ExpensesResponse>) {
+    override suspend fun getAllExpensesForPeriod(headers: DefaultHeaders, year: Int, month: Int, handler: ResultHandler<ExpensesResponse>) {
         expensesBaseService.getAllExpensesForPeriod(year, month)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(handler::onSuccess, handler::onError)
     }
 
-    override suspend fun getExpensesForCategory(category: Category, handler: ResultHandler<ExpensesResponse>) {
+    override suspend fun getExpensesForCategory(headers: DefaultHeaders, category: Category, handler: ResultHandler<ExpensesResponse>) {
         expensesBaseService.getExpensesForCategory(category.id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(handler::onSuccess, handler::onError)
     }
 
-    override suspend fun addExpense(expense: Expense, handler: ResultHandler<ExpensesResponse>) {
+    override suspend fun addExpense(headers: DefaultHeaders, expense: Expense, handler: ResultHandler<ExpensesResponse>) {
         val body = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             ExpenseAddBody(expense.convertToService())
         } else {
@@ -49,7 +49,7 @@ class ExpensesServiceImpl @Inject constructor(private val expensesBaseService : 
     }
 
 
-    override suspend fun fetchCategories(handler: ResultHandler<CategoriesResponse>) {
+    override suspend fun fetchCategories(headers: DefaultHeaders, handler: ResultHandler<CategoriesResponse>) {
         expensesBaseService.fetchCategories()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
