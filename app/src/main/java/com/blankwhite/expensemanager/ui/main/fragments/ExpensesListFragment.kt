@@ -26,9 +26,9 @@ import dagger.hilt.android.AndroidEntryPoint
 
 
 @AndroidEntryPoint
-class MainFragment : BaseFragment(), OnExpenseClickListener, NavigationView.OnNavigationItemSelectedListener {
+class ExpensesListFragment : BaseFragment(), OnExpenseClickListener {
 
-    override fun useDefaultToolbar() : Boolean = false
+    override fun useDefaultToolbar() : Boolean = true
 
     private lateinit var _binding : FragmentMainBinding
     private val binding
@@ -135,36 +135,10 @@ class MainFragment : BaseFragment(), OnExpenseClickListener, NavigationView.OnNa
 
 
     private fun setupToolbar() {
-        val appBarConfiguration = AppBarConfiguration(getNavController().graph, binding.drawerLayout)
 
-        binding.toolbar.setupWithNavController(getNavController(), appBarConfiguration)
-
-        binding.toolbar.title = "Expense List"
-
-        binding.toolbar.inflateMenu(R.menu.main_toolbar_menu)
-
-        binding.navView.setNavigationItemSelectedListener(this)
     }
 
 
-    override fun handleBackPressed(): Boolean {
-        return if(binding.drawerLayout.isOpen) {
-            binding.drawerLayout.close()
-            true
-        } else {
-            super.handleBackPressed()
-        }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
-            R.id.nav_logout -> {
-                signOut()
-                true
-            }
-            else -> false
-        }
-    }
 
     override fun onExpenseClicked(expense: Expense) {
         val bundle : Bundle = bundleOf("expense" to expense)

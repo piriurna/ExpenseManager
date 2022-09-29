@@ -11,6 +11,8 @@ import androidx.core.content.ContextCompat.getColor
 import androidx.viewbinding.ViewBinding
 import com.blankwhite.expensemanager.R
 import com.blankwhite.expensemanager.databinding.RegisterFragmentBinding
+import com.blankwhite.expensemanager.ui.common.LightStatusBar
+import com.blankwhite.expensemanager.ui.common.StatusBarColor
 import com.blankwhite.expensemanager.ui.main.fragments.BaseFragment
 import com.blankwhite.expensemanager.utils.colorText
 import com.blankwhite.expensemanager.utils.hideKeyboard
@@ -19,6 +21,7 @@ import com.blankwhite.expensemanager.utils.setSpans
 
 class RegisterFragment : BaseFragment(){
 
+    override fun getStatusBarColor(): StatusBarColor = LightStatusBar(requireContext())
 
     private lateinit var _binding : RegisterFragmentBinding
     private val binding

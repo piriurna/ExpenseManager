@@ -9,10 +9,14 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.viewbinding.ViewBinding
 import com.blankwhite.expensemanager.R
 import com.blankwhite.expensemanager.databinding.ForgotPasswordScreenBinding
+import com.blankwhite.expensemanager.ui.common.LightStatusBar
+import com.blankwhite.expensemanager.ui.common.StatusBarColor
 import com.blankwhite.expensemanager.ui.login.LoginRegisterActivity
 import com.blankwhite.expensemanager.ui.main.fragments.BaseFragment
 
 class ForgotPasswordFragment : BaseFragment() {
+
+    override fun getStatusBarColor(): StatusBarColor = LightStatusBar(requireContext())
 
     private lateinit var _binding : ForgotPasswordScreenBinding
     private val binding
